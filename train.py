@@ -1,21 +1,46 @@
 import gym
+import gym_super_mario_bros
 from PPO import Memory, PPO
 import sys
+import numpy as np
 
 def main():
+    # ############## Hyperparameters ##############
+    # env_name = "LunarLander-v2"
+    # # creating environment
+    # env = gym.make(env_name)
+    # state_dim = env.observation_space.shape[0]
+    # print('state_dim:', state_dim)
+    # action_dim = 4
+    # render = 'render' in sys.argv
+    # solved_reward = 230         # stop training if avg_reward > solved_reward
+    # log_interval = 20           # print avg reward in the interval
+    # max_episodes = 50000        # max training episodes
+    # max_timesteps = 300         # max timesteps in one episode
+    # n_latent_var = 64           # number of variables in hidden layer
+    # update_timestep = 2000      # update policy every n timesteps
+    # lr = 0.002
+    # betas = (0.9, 0.999)
+    # gamma = 0.99                # discount factor
+    # K_epochs = 4                # update policy for K epochs
+    # eps_clip = 0.2              # clip parameter for PPO
+    # random_seed = None
+    # #############################################
+
     ############## Hyperparameters ##############
-    env_name = "LunarLander-v2"
+    env_name = "SuperMarioBros-v0"
     # creating environment
-    env = gym.make(env_name)
-    state_dim = env.observation_space.shape[0]
+    env = gym_super_mario_bros.make(env_name)
+    state_dim = env.observation_space.shape[2]
+    # print('state_dim:', state_dim)
     action_dim = 4
     render = 'render' in sys.argv
     solved_reward = 230         # stop training if avg_reward > solved_reward
     log_interval = 20           # print avg reward in the interval
-    max_episodes = 50000        # max training episodes
-    max_timesteps = 300         # max timesteps in one episode
+    max_episodes = 50        # max training episodes
+    max_timesteps = 50         # max timesteps in one episode
     n_latent_var = 64           # number of variables in hidden layer
-    update_timestep = 2000      # update policy every n timesteps
+    update_timestep = 256      # update policy every n timesteps
     lr = 0.002
     betas = (0.9, 0.999)
     gamma = 0.99                # discount factor
@@ -44,7 +69,7 @@ def main():
             timestep += 1
             
             # Running policy_old:
-            action = ppo.policy_old.act(state, memory)
+            action = ppo.policy_old.act(state.copy(), memory)
             state, reward, done, _ = env.step(action)
             
             # Saving reward and is_terminal:
