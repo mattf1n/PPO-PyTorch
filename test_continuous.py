@@ -7,7 +7,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def test():
     ############## Hyperparameters ##############
-    env_name = "BipedalWalker-v2"
+    env_name = "BipedalWalker-v3"
     env = gym.make(env_name)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0]
@@ -18,8 +18,13 @@ def test():
     save_gif = False        # png images are saved in gif folder
     
     # filename and directory to load model from
-    filename = "PPO_continuous_" +env_name+ ".pth"
-    directory = "./preTrained/"
+    # filename = "PPO_continuous_" +env_name+ ".pth"
+
+    # filename = "PPO_continuous_BipedalWalker-v2.pth"
+    # directory = "./preTrained/"
+
+    filename = "PPO_continuous_BipedalWalker-v3_1000.pth"
+    directory = "./saved_models/"
 
     action_std = 0.5        # constant std for action distribution (Multivariate Normal)
     K_epochs = 80           # update policy for K epochs

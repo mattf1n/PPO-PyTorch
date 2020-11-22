@@ -138,6 +138,26 @@ class PPO:
         self.policy_old.load_state_dict(self.policy.state_dict())
         
 def main():
+    # ############## Hyperparameters ##############
+    # env_name = "BipedalWalker-v3"
+    # render = False
+    # solved_reward = 300         # stop training if avg_reward > solved_reward
+    # log_interval = 20           # print avg reward in the interval
+    # max_episodes = 10000        # max training episodes
+    # max_timesteps = 1500        # max timesteps in one episode
+    
+    # update_timestep = 4000      # update policy every n timesteps
+    # action_std = 0.5            # constant std for action distribution (Multivariate Normal)
+    # K_epochs = 80               # update policy for K epochs
+    # eps_clip = 0.2              # clip parameter for PPO
+    # gamma = 0.99                # discount factor
+    
+    # lr = 0.0003                 # parameters for Adam optimizer
+    # betas = (0.9, 0.999)
+    
+    # random_seed = None
+    # #############################################
+
     ############## Hyperparameters ##############
     env_name = "BipedalWalker-v3"
     render = False
@@ -207,12 +227,12 @@ def main():
         # stop training if avg_reward > solved_reward
         if running_reward > (log_interval*solved_reward):
             print("########## Solved! ##########")
-            torch.save(ppo.policy.state_dict(), './PPO_continuous_solved_{}.pth'.format(env_name))
+            torch.save(ppo.policy.state_dict(), './saved_models/PPO_continuous_solved_{}.pth'.format(env_name))
             break
         
         # save every 500 episodes
         if i_episode % 500 == 0:
-            torch.save(ppo.policy.state_dict(), './PPO_continuous_{}.pth'.format(env_name))
+            torch.save(ppo.policy.state_dict(), './saved_models/PPO_continuous_{}_{}.pth'.format(env_name, i_episode))
             
         # logging
         if i_episode % log_interval == 0:

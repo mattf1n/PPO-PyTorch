@@ -92,7 +92,7 @@ def main():
         # stop training if avg_reward > solved_reward
         if running_reward > (log_interval*solved_reward):
             print("########## Solved! ##########")
-            torch.save(ppo.policy.state_dict(), './PPO_{}.pth'.format(env_name))
+            torch.save(ppo.policy.state_dict(), './saved_models/PPO_{}.pth'.format(env_name))
             break
             
         # logging
