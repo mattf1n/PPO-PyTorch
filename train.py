@@ -69,7 +69,6 @@ def main():
             
             # Running policy_old:
             action = ppo.policy_old.act(state.copy(), memory)
-            print(action.cpu())
             state, reward, done, _ = env.step(action.cpu())
             
             # Saving reward and is_terminal:
