@@ -55,9 +55,9 @@ class ActorCritic(nn.Module):
         memory.actions.append(action)
         memory.logprobs.append(dist.log_prob(action))
         
-        return action.item() # ORIGINAL
+        # return action.item() # ORIGINAL
 
-        # return action.mode().values.mode().values # FOR MARIO
+        return action.mode().values.mode().values # FOR MARIO
     
     def evaluate(self, state, action):
         action_probs = self.action_layer(state)
